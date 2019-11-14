@@ -10,3 +10,4 @@ def naver_webtoon_crw(request):
 
 class WebtoonList(ListView):
     model = WebToon
+    context_object_name = 'webtoon_list' # object_list 대신에
