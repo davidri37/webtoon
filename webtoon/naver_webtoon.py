@@ -1,6 +1,6 @@
 import requests
 import bs4
-
+from .models import WebToon
 
 def naver_webtoon_day(day):
     html = requests.get("https://comic.naver.com/webtoon/weekdayList.nhn?week=" + day)
@@ -15,10 +15,20 @@ def naver_webtoon_day(day):
     # print(webtoon_list_tags)
 
     for webtoon_tag in webtoon_list_tags:
-        print(webtoon_tag.find('a')['title'])
-        print(webtoon_tag.find('a').find('img')['src'])
-        print(webtoon_tag.find('dd', {'class': 'desc'}).text.strip())
+        webtoon = WebToon()
+        webtoon.site_name = "네이버"
+        webtoon.webtoon_name = webtoon_tag.find('a')['title']
+        webtoon.webtoon_author = webtoon_tag.find('dd', {'class': 'desc'}).text.strip()
+        webtoon.webtoon_img_url = webtoon_tag.find('img')['src']
+        webtoon.webtoon_id = "네이버_" + webtoon_tag.find('a')['title']
 
-week_list = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
-for week in week_list:
-    naver_webtoon_day(week)
+        webtoon.save()
+
+        # print(webtoon_tag.find('a')['title'])
+        # print(webtoon_tag.find('a').find('img')['src'])
+        # print(webtoon_tag.find('dd', {'class': 'desc'}).text.strip())
+
+def naver_webtoon():
+    week_list = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
+    for week in week_list:
+        naver_webtoon_day(week)
