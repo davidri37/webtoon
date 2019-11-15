@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>웹툰 상세 화면</title>
-</head>
-<body>
+{% extends 'Base.html' %}
+{% block title %}웹툰 상세 화면{% endblock %}
+
+{% block content %}
+
     <img src="{{ object.webtoon.webtoon_img_url }}"><br>
     {{ object.webtoon.webtoon_name }}<br>
     {{ object.webtoon.webtoon_author }}<br>
@@ -26,5 +24,6 @@
         {% endfor %}
         </tbody>
     </table>
-</body>
-</html>
+
+
+{% endblock %}
